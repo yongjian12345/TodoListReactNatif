@@ -13,13 +13,25 @@ const DATA = [
     },
 ];
 async function getAllTodos() {
+    // Fausse requête ...
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     // SEULEMENT POUR LA DÉMO ET FORCER LE RE-RENDERER
     const dataCopy = Object.assign([], DATA);
     return dataCopy;
 }
 
 async function insertTodo(todo) {
+    // Fausse requête ...
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     DATA.push(todo);
     return todo;
 }
-export default {getAllTodos, insertTodo}
+
+async function getTodo(id) {
+    // Fausse requête ...
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const todo = DATA.find((todo) => todo.id === id);
+    return todo;
+}
+
+export default {getAllTodos, insertTodo, getTodo}

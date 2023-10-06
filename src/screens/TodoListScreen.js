@@ -3,11 +3,14 @@ import { StyleSheet, View, TextInput, Button, SafeAreaView } from 'react-native'
 import TodoInput from '../components/TodoInput';
 import AppTheme from '../styles/AppTheme';
 import TodoList from '../components/TodoList';
+import { useNavigation } from '@react-navigation/native';
+
 export default function TodoListScreen() {
+  const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
            <TodoInput />
-           <TodoList />
+           <TodoList onPress={(id) => navigation.navigate('Todo', {id: id})}/>
         </SafeAreaView>
     );
 }

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, FlatList } from 'react-native';
+import { StyleSheet, Text, FlatList, TouchableHighlight } from 'react-native';
 import useTodoList from '../hooks/useTodoList';
 /*
 const DATA = [
@@ -16,15 +16,17 @@ const DATA = [
     },
 ];*/
 
-const TodoListItem = ({item}) => (
-    <Text style={styles.todoListItem}>{item.todo}</Text>
+const TodoListItem = ({item, onPress}) => (
+    <TouchableHighlight onPress={onPress}>
+        <Text style={styles.todoListItem}>{item.todo}</Text>
+    </TouchableHighlight>
 );
 
-export default function TodoList() {
-    const {todoList} = useTodoList();
+export default function TodoList({onPress}) {
+    const {todoList, isLoading, loadTodoList} = useTodoList();
     const renderItem = ({item}) => {
         return (
-            <TodoListItem item={item}/>
+            <TodoListItem onPress={() => {onPress(item.id)}} item={item}/>
         );
     };
     
@@ -33,7 +35,9 @@ export default function TodoList() {
         style={styles.flatlist}
         data={todoList}
         renderItem={renderItem}
-        keyExtractor={item => item.id}/>
+        keyExtractor={item => item.id}
+        refreshing={isLoading}
+        onRefresh={loadTodoList}/>
     );
 }
 const styles = StyleSheet.create({
